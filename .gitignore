@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+npm-debug.log*
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# AI / ML
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Temporary files
+*.tmp
+*.temp
