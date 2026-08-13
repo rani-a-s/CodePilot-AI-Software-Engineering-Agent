@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from backend.app.analyzers.repository_analyzer import analyze_repository
 from backend.app.analyzers.technology_detector import detect_technologies
 from backend.app.analyzers.code_analyzer import analyze_codebase
+from backend.app.code_indexer.indexer import index_codebase
 
 
 app = FastAPI(
@@ -40,3 +41,7 @@ def technologies():
 @app.get("/code-structure")
 def code_structure():
     return analyze_codebase(".")
+
+@app.get("/code-index")
+def code_index():
+    return index_codebase(".")
