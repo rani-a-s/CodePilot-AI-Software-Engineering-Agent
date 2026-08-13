@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from backend.app.analyzers.repository_analyzer import analyze_repository
+from backend.app.analyzers.technology_detector import detect_technologies
 
 app = FastAPI(
     title="CodePilot API",
@@ -23,6 +24,6 @@ def health_check():
     }
 
 
-@app.get("/analyze")
-def analyze():
-    return analyze_repository(".")
+@app.get("/technologies")
+def technologies():
+    return detect_technologies(".")
