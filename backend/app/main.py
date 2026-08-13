@@ -4,6 +4,7 @@ from backend.app.analyzers.repository_analyzer import analyze_repository
 from backend.app.analyzers.technology_detector import detect_technologies
 from backend.app.analyzers.code_analyzer import analyze_codebase
 from backend.app.code_indexer.indexer import index_codebase
+from backend.app.code_search.search import search_code
 
 
 app = FastAPI(
@@ -45,3 +46,11 @@ def code_structure():
 @app.get("/code-index")
 def code_index():
     return index_codebase(".")
+
+@app.get("/search")
+def search(query: str, limit: int = 5):
+    return search_code(
+        ".",
+        query,
+        limit,
+    )
