@@ -5,6 +5,7 @@ from backend.app.analyzers.technology_detector import detect_technologies
 from backend.app.analyzers.code_analyzer import analyze_codebase
 from backend.app.code_indexer.indexer import index_codebase
 from backend.app.code_search.search import search_code
+from backend.app.code_search.semantic_search import semantic_search
 
 
 app = FastAPI(
@@ -50,6 +51,14 @@ def code_index():
 @app.get("/search")
 def search(query: str, limit: int = 5):
     return search_code(
+        ".",
+        query,
+        limit,
+    )
+
+@app.get("/semantic-search")
+def semantic_search_endpoint(query: str, limit: int = 5):
+    return semantic_search(
         ".",
         query,
         limit,
