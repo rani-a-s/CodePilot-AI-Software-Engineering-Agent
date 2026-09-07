@@ -1,20 +1,26 @@
 # 🚀 CodePilot – AI-Powered Software Engineering Agent
 
-CodePilot is an AI-powered software engineering assistant that analyzes a software repository, understands its code structure, detects technologies, indexes source code, and uses semantic search to answer developer questions.
+CodePilot is an AI-powered software engineering assistant that analyzes software repositories, understands code structure, detects technologies, indexes source code, and uses semantic search to help developers find relevant code and answer repository-related questions.
+
+---
 
 ## ✨ Features
 
 - 📂 Repository structure analysis
-- 🛠️ Technology and framework detection
+- 🛠️ Programming language and framework detection
 - 🌳 Python AST-based code analysis
 - 📑 Source code indexing
 - 🔎 Keyword-based code search
-- 🧠 AI-powered semantic code search
+- 🧠 Semantic code search using AI embeddings
 - 🤖 Developer question answering
-- 📌 Relevant code source retrieval
+- 📌 Relevant source code retrieval
+- 📊 Similarity scoring for search results
 - ⚡ FastAPI REST API
 - 📚 Interactive Swagger API documentation
-- 💻 Local AI embeddings using Sentence Transformers
+- 💻 Local embeddings using Sentence Transformers
+- 🧪 Automated API testing using Pytest
+
+---
 
 ## 🏗️ Architecture
 
@@ -55,16 +61,23 @@ CodePilot is an AI-powered software engineering assistant that analyzes a softwa
                     └─────────────────────┘
 ```
 
+---
+
 ## 🛠️ Technology Stack
 
-- **Python**
-- **FastAPI**
-- **Uvicorn**
-- **Sentence Transformers**
-- **NumPy**
-- **Python AST**
-- **Git**
-- **GitHub**
+| Technology | Purpose |
+|---|---|
+| Python | Core application development |
+| FastAPI | REST API development |
+| Uvicorn | Application server |
+| Sentence Transformers | Text and code embeddings |
+| NumPy | Vector and similarity calculations |
+| Python AST | Python source-code analysis |
+| Pytest | Automated testing |
+| Git | Version control |
+| GitHub | Source-code hosting |
+
+---
 
 ## 📁 Project Structure
 
@@ -73,7 +86,6 @@ CodePilot-AI-Software-Engineering-Agent/
 │
 ├── backend/
 │   ├── app/
-│   │   │
 │   │   ├── agent/
 │   │   │   ├── __init__.py
 │   │   │   └── agent.py
@@ -106,10 +118,15 @@ CodePilot-AI-Software-Engineering-Agent/
 ├── docs/
 ├── frontend/
 ├── tests/
+│   ├── __init__.py
+│   └── test_codepilot.py
+│
 ├── .env.example
 ├── .gitignore
 └── README.md
 ```
+
+---
 
 ## ⚙️ Installation
 
@@ -128,7 +145,7 @@ python -m venv .venv
 
 ### 3. Activate the virtual environment
 
-Windows PowerShell:
+#### Windows PowerShell
 
 ```powershell
 .venv\Scripts\Activate.ps1
@@ -139,6 +156,8 @@ Windows PowerShell:
 ```powershell
 pip install -r backend/requirements.txt
 ```
+
+---
 
 ## ▶️ Run the Application
 
@@ -160,59 +179,99 @@ Open the interactive Swagger documentation:
 http://127.0.0.1:8000/docs
 ```
 
+---
+
 ## 🔌 API Endpoints
 
 | Endpoint | Description |
 |---|---|
-| `GET /` | Check CodePilot application information |
+| `GET /` | Display CodePilot application information |
 | `GET /health` | Check API health |
 | `GET /analyze` | Analyze repository structure |
 | `GET /technologies` | Detect programming languages and frameworks |
 | `GET /code-structure` | Analyze Python code structure |
 | `GET /code-index` | Generate indexed code chunks |
 | `GET /search` | Perform keyword-based code search |
-| `GET /semantic-search` | Perform AI-powered semantic code search |
+| `GET /semantic-search` | Perform semantic code search |
 | `GET /ask` | Ask CodePilot a developer question |
 
-## 🧠 Semantic Search
+---
 
-CodePilot uses a local Sentence Transformer model to convert text and source code into numerical embeddings.
+## 🚀 Demo
 
-```text
-Developer Question
-        │
-        ▼
-Sentence Transformer
-        │
-        ▼
-384-Dimensional Embedding
-        │
-        ▼
-Cosine Similarity
-        │
-        ▼
-Relevant Code
-```
+CodePilot can be demonstrated through the interactive Swagger API.
 
-The current embedding model is:
+### 1. Repository Analysis
+
+Use:
 
 ```text
-all-MiniLM-L6-v2
+GET /analyze
 ```
 
-Semantic search allows CodePilot to find code based on **meaning**, rather than requiring an exact keyword match.
+CodePilot analyzes the repository and provides information about files, directories, and file types.
 
-## 🤖 CodePilot Agent
+---
 
-The `/ask` endpoint allows developers to ask questions about the repository.
+### 2. Technology Detection
 
-### Example Question
+Use:
+
+```text
+GET /technologies
+```
+
+This detects programming languages, frameworks, and technologies used by the repository.
+
+---
+
+### 3. Code Structure Analysis
+
+Use:
+
+```text
+GET /code-structure
+```
+
+The AST analyzer identifies Python functions, classes, imports, and other structural information.
+
+---
+
+### 4. Semantic Code Search
+
+Use:
+
+```text
+GET /semantic-search
+```
+
+Example query:
+
+```text
+find the function that checks if the API is healthy
+```
+
+CodePilot converts the query and indexed code into numerical embeddings and compares them using cosine similarity.
+
+The most relevant code is returned based on semantic similarity.
+
+---
+
+### 5. Developer Q&A
+
+Use:
+
+```text
+GET /ask
+```
+
+Example question:
 
 ```text
 Where is the API health check implemented?
 ```
 
-### Example Response
+Example response:
 
 ```text
 The most relevant code is the `health_check`
@@ -220,7 +279,7 @@ function in `backend/app/main.py`
 (lines 27-30).
 ```
 
-CodePilot also provides:
+The response also provides:
 
 - Relevant source file
 - Function or class name
@@ -228,40 +287,123 @@ CodePilot also provides:
 - Source code
 - Semantic similarity score
 
+---
+
+## 🧠 How Semantic Search Works
+
+CodePilot uses the local `all-MiniLM-L6-v2` Sentence Transformer model to convert developer queries and source-code chunks into numerical embeddings.
+
+```text
+Developer Query
+       │
+       ▼
+Sentence Transformer
+       │
+       ▼
+384-Dimensional Embedding
+       │
+       ▼
+Cosine Similarity
+       │
+       ▼
+Ranked Code Results
+       │
+       ▼
+Most Relevant Code
+```
+
+This allows CodePilot to search code based on **meaning**, rather than depending only on exact keyword matches.
+
+### Embedding Model
+
+```text
+all-MiniLM-L6-v2
+```
+
+The generated embeddings contain **384 dimensions**.
+
+---
+
+## 🤖 CodePilot Agent
+
+The `/ask` endpoint provides a developer-friendly interface for repository questions.
+
+### Example
+
+**Question:**
+
+```text
+Where is the API health check implemented?
+```
+
+**CodePilot identifies:**
+
+```text
+Function: health_check
+File: backend/app/main.py
+```
+
+It also returns the relevant source code and semantic similarity score.
+
+> **Note:** The current agent is retrieval-based. It uses semantic search to retrieve relevant code and generates a structured developer-facing response. Full generative LLM integration is planned as a future enhancement.
+
+---
+
 ## 🔍 Example Workflow
 
 ```text
 Developer Question
-        ↓
-     /ask
-        ↓
+        │
+        ▼
+      /ask
+        │
+        ▼
 CodePilot Agent
-        ↓
+        │
+        ▼
 Semantic Search
-        ↓
+        │
+        ▼
 Embedding Generation
-        ↓
+        │
+        ▼
 Cosine Similarity
-        ↓
+        │
+        ▼
 Relevant Code Chunks
-        ↓
+        │
+        ▼
 Developer-Friendly Answer
 ```
 
-## 🎯 Project Goals
+---
 
-CodePilot is designed to evolve into a complete AI software engineering agent capable of:
+## 🧪 Automated Testing
 
-- 🔎 Intelligent code search
-- 🧠 Code understanding
-- 🐛 Bug detection
-- 💡 Code explanation
-- 🧪 Test generation
-- 🔐 Security analysis
-- ✨ Code improvement suggestions
-- 🤖 AI-assisted software development
+CodePilot includes automated API tests using Pytest.
 
-## 📈 Current Development Status
+Run the tests with:
+
+```powershell
+pytest
+```
+
+Current test coverage includes:
+
+- Root API endpoint
+- Health check endpoint
+- Semantic search
+- CodePilot developer Q&A
+
+Expected result:
+
+```text
+4 passed
+```
+
+---
+
+## 📊 Current Development Status
 
 ```text
 Repository Analyzer       ✅
@@ -272,11 +414,30 @@ Keyword Search            ✅
 AI Embeddings             ✅
 Semantic Search           ✅
 CodePilot Agent           ✅
+Automated Testing         ✅
+
 Vector Database           🔄
 LLM Integration           🔄
-Automated Testing         🔄
 Frontend Dashboard        🔄
 ```
+
+---
+
+## 🎯 Project Goals
+
+CodePilot is designed to evolve into a complete AI-assisted software engineering platform capable of:
+
+- 🔎 Intelligent code search
+- 🧠 Advanced code understanding
+- 🐛 Automated bug detection
+- 💡 Code explanation
+- 🧪 Test generation
+- 🔐 Security analysis
+- ✨ Code improvement suggestions
+- 🤖 AI-assisted software development
+- 🔗 GitHub repository integration
+
+---
 
 ## 🚀 Future Enhancements
 
@@ -291,12 +452,13 @@ Frontend Dashboard        🔄
 - Multi-language code analysis
 - Agent-based software development workflows
 
+---
+
 ## 👩‍💻 Author
 
 **Rani Sankanur**
 
-GitHub:  
-https://github.com/rani-a-s
+GitHub: `rani-a-s`
 
 ---
 
